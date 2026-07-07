@@ -3,6 +3,8 @@
 This directory contains the canonical AssemblyLine development skill.
 
 - `SKILL.md`: agent-facing instructions.
-- Supporting setup and examples live at the repository root in `scripts/`, `docs/`, and `examples/`.
+- `references/`: longer background notes used by the skill.
+- `scripts/`: setup scripts for agent workspaces.
+- `examples/`: small runnable examples and curl snippets.
 
-The skill is intentionally concise compared with the full setup and workflow documentation. This makes it easier to maintain and safer to reuse across agents.
+The skill is self-contained so it can be installed directly from this directory by tools that expect an agent skill package.
