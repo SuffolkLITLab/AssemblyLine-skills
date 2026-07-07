@@ -8,7 +8,7 @@ Agent skills, setup scripts, and reusable workflow guidance for developing high-
 skills/docassemble-assemblyline/SKILL.md   Main agent-facing skill
 scripts/setup-ubuntu.sh                    Ubuntu/Debian system dependency installer
 scripts/setup-python.sh                    Python package installer
-docs/skill-deployment.md                   How to install the skill in Codex, OpenCode, and Claude Code
+docs/skill-deployment.md                   How to install or adapt the skill across agent and hosted chat products
 docs/tool-selection.md                     Which AssemblyLine tool to use for each task
 docs/environment.md                        Local and server environment notes
 docs/server-workflows.md                   ALDashboard and Docassemble server workflows
@@ -36,7 +36,7 @@ skills/docassemble-assemblyline/SKILL.md
 
 It intentionally stays focused on agent behavior, conventions, and tool selection. Long dependency lists, curl examples, and runnable snippets live in `scripts/`, `docs/`, and `examples/`.
 
-To install the skill in Codex, OpenCode, or Claude Code, see [`docs/skill-deployment.md`](docs/skill-deployment.md).
+To install the skill in Codex, OpenCode, Claude Code, or adapt it for hosted chat products like ChatGPT and Claude, see [`docs/skill-deployment.md`](docs/skill-deployment.md).
 
 ## Related projects
 
