@@ -1,5 +1,5 @@
 ---
-name: docassemble-assemblyline
+name: assemblyline-dev
 description: Provides guidelines, conventions, and tool-selection guidance for building high-quality Docassemble interviews following Suffolk LIT Lab AssemblyLine standards. Covers YAML structure, naming conventions, DOCX/PDF labeling, ALWeaver drafting, ALDashboard server workflows, DAYamlChecker validation, ALKiln tests, translation, and deployment.
 ---
 
@@ -30,7 +30,7 @@ Use the ecosystem tools this way:
 - **docassemblecli**: Deploy packages to a Docassemble server from a local package directory.
 - **ALToolbox**: Use reusable Python helpers, widgets, and components for interviews.
 
-See `docs/tool-selection.md` for more detail.
+See `references/tool-selection.md` for more detail.
 
 ## Environment setup
 
@@ -118,7 +118,7 @@ For DOCX templates:
 - Validate DOCX templates before deployment.
 - Use ALDashboard for AI-assisted DOCX labeling when a running server is available.
 
-See `docs/server-workflows.md` and `examples/aldashboard_docx_auto_label.sh`.
+See `references/server-workflows.md` and `examples/aldashboard_docx_auto_label.sh`.
 
 ## PDF template guidance
 
@@ -200,7 +200,7 @@ Generating translation XLSX files requires a running Docassemble server with ALD
 POST /al/api/v1/dashboard/translation
 ```
 
-See `docs/server-workflows.md`.
+See `references/server-workflows.md`.
 
 ## Server-backed workflows
 

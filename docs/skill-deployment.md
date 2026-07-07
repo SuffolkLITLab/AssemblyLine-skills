@@ -1,0 +1,187 @@
+# Deploying the AssemblyLine development skill
+
+This repository's canonical skill package is:
+
+```text
+skills/assemblyline-dev/
+```
+
+The skill is named `assemblyline-dev`. It is an agent instruction package, not a Docassemble package. It is self-contained: `SKILL.md`, `references/`, `scripts/`, and `examples/` all live inside the skill directory.
+
+Run the manual install commands below from the root of this repository.
+
+## Before deployment
+
+1. Review `skills/assemblyline-dev/SKILL.md` and the supporting files you plan to install.
+2. Keep the deployed folder name as `assemblyline-dev`.
+3. Do not add secrets, API keys, private server URLs, or client data to a skill directory.
+4. Restart the agent if it does not notice a newly created skills directory.
+
+## Install with the Agent Skills CLI
+
+Tools that support the Agent Skills CLI can install the skill directly from this repository path:
+
+```bash
+npx skills add https://github.com/SuffolkLITLab/AssemblyLine-skills/tree/main/skills/assemblyline-dev
+```
+
+For local testing from a checkout, use:
+
+```bash
+npx skills add skills/assemblyline-dev
+```
+
+## Shared manual install helper
+
+```bash
+install_assemblyline_skill() {
+  target="$1"
+  test -n "$target"
+  rm -rf "$target"
+  mkdir -p "$target"
+
+  cp -R skills/assemblyline-dev/. "$target"/
+}
+```
+
+## Codex
+
+Use a repository install when the skill should travel with one codebase. Use a user install when you want it available across projects.
+
+### User-scoped install
+
+```bash
+install_assemblyline_skill "$HOME/.agents/skills/assemblyline-dev"
+```
+
+### Repository-scoped install
+
+```bash
+install_assemblyline_skill ".agents/skills/assemblyline-dev"
+```
+
+Commit `.agents/skills/assemblyline-dev/` if the whole team should get the skill with the repository.
+
+### Verify in Codex
+
+1. Start Codex from the relevant repository or workspace.
+2. Run `/skills` or type `$` and look for `assemblyline-dev`.
+3. Try a prompt such as:
+
+```text
+Use the assemblyline-dev skill to review this interview for AssemblyLine conventions.
+```
+
+If the skill is missing, confirm the folder contains `SKILL.md` and restart Codex.
+
+## OpenCode
+
+Prefer OpenCode's native paths unless you intentionally want to share one installed copy with another agent.
+
+### User-scoped install
+
+```bash
+install_assemblyline_skill "$HOME/.config/opencode/skills/assemblyline-dev"
+```
+
+### Repository-scoped install
+
+```bash
+install_assemblyline_skill ".opencode/skills/assemblyline-dev"
+```
+
+Commit `.opencode/skills/assemblyline-dev/` if the whole team should get the skill with the repository.
+
+### Optional permission
+
+If your OpenCode configuration restricts skills, allow this skill in `opencode.json`:
+
+```json
+{
+  "permission": {
+    "skill": {
+      "assemblyline-dev": "allow"
+    }
+  }
+}
+```
+
+### Verify in OpenCode
+
+1. Start OpenCode from the relevant repository or workspace.
+2. Ask a prompt that explicitly names the skill:
+
+```text
+Use the assemblyline-dev skill to suggest ALKiln smoke tests for this interview.
+```
+
+If the skill is not loaded, check that `SKILL.md` is capitalized exactly, the directory is named `assemblyline-dev`, and your skill permissions do not deny it.
+
+## Claude Code
+
+Use a personal install for all projects or a project install for one repository.
+
+### Personal install
+
+```bash
+install_assemblyline_skill "$HOME/.claude/skills/assemblyline-dev"
+```
+
+### Project install
+
+```bash
+install_assemblyline_skill ".claude/skills/assemblyline-dev"
+```
+
+Commit `.claude/skills/assemblyline-dev/` if the whole team should get the skill with the repository.
+
+### Verify in Claude Code
+
+1. Start Claude Code from the relevant repository or workspace:
+
+```bash
+claude
+```
+
+2. Invoke the skill directly:
+
+```text
+/assemblyline-dev
+```
+
+Or use a matching prompt:
+
+```text
+Use the assemblyline-dev skill to check this Docassemble interview before deployment.
+```
+
+Claude Code watches skill directories for edits, but restart the session if you created a new top-level skills directory after Claude Code was already running.
+
+## Hosted chat options
+
+Hosted chat products do not all install local `SKILL.md` folders. Use the closest supported equivalent.
+
+| Product | Recommended setup |
+| --- | --- |
+| ChatGPT | Create a Project or custom GPT. Put the durable rules from `SKILL.md` in the instructions and upload supporting `references/` and selected `examples/` as reference files. |
+| Claude web/desktop apps | Create a Claude custom skill when available. Use `assemblyline-dev` as the skill name, make this repository's `SKILL.md` the main skill file, and include supporting resources. |
+| Claude Projects | Use project instructions and project knowledge when Claude Skills are unavailable or when the guidance should apply only to one project. |
+
+ChatGPT GPT Actions, MCP connectors, and older plugin-style integrations are for connecting ChatGPT to external APIs or tools. They can complement this guidance, but they are not a direct deployment path for this `SKILL.md` skill.
+
+## Updating an installed skill
+
+After pulling changes to this repository, rerun the same install command for each target you use. The helper replaces the old deployed copy so deleted supporting files do not linger.
+
+For hosted chat adaptations, manually update the pasted instructions and uploaded files whenever this repository changes.
+
+## References
+
+- Agent Skills CLI: https://skills.sh/
+- Codex Agent Skills: https://developers.openai.com/codex/skills
+- OpenCode Agent Skills: https://opencode.ai/docs/skills
+- Claude Code Skills: https://code.claude.com/docs/en/skills
+- ChatGPT Projects: https://help.openai.com/en/articles/10169521-using-projects-in-chatgpt
+- ChatGPT custom GPTs: https://help.openai.com/en/articles/8554397-creating-a-gpt
+- Claude Skills: https://claude.com/blog/skills
+- Claude Projects: https://support.claude.com/en/articles/9517075-what-are-projects
