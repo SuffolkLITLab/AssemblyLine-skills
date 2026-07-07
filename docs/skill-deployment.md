@@ -153,6 +153,7 @@ Hosted chat products do not all install local `SKILL.md` folders the same way CL
 | Product | Best option | Notes |
 | --- | --- | --- |
 | ChatGPT | Project or custom GPT | ChatGPT does not currently expose a `SKILL.md` folder install path in the chat UI. Use project/custom GPT instructions plus uploaded reference files instead. |
+| ChatGPT plugin / GPT Action | Only when you need external API calls | Plugins and actions are API integrations, not instruction bundles. Use a GPT Action only if you expose an AssemblyLine-related API. |
 | Claude web/desktop apps | Claude Skills | Claude supports custom skills across Claude apps for Pro, Max, Team, and Enterprise users. |
 | Claude Projects | Project instructions and knowledge | Useful fallback when Claude Skills are unavailable or when you want a lightweight project-specific setup. |
 
@@ -183,6 +184,25 @@ Explain which AssemblyLine tool I should use for this task.
 ```
 
 Keep behavior rules in Instructions and reference material in Knowledge. If you later update this repository, update the GPT instructions and uploaded knowledge files manually.
+
+### ChatGPT plugins and GPT Actions
+
+A ChatGPT plugin or GPT Action is not the same thing as a `SKILL.md` skill.
+
+Use this distinction:
+
+- **Skill**: instructions, workflows, conventions, examples, and reference files that guide an agent's behavior.
+- **ChatGPT plugin / GPT Action**: an external API integration that lets ChatGPT retrieve data or take actions in another system.
+
+The AssemblyLine skill in this repository is primarily the first kind. It does not include a plugin manifest, OpenAPI schema, public API service, authentication flow, or hosted endpoint.
+
+Create a GPT Action only if you want ChatGPT to call a real service, such as:
+
+- A Docassemble server API.
+- An ALDashboard endpoint for translation, YAML checks, DOCX validation, or PDF utilities.
+- A custom wrapper service that runs repository scripts in a controlled environment.
+
+In that case, keep the AssemblyLine guidance in custom GPT Instructions or Knowledge, and add a GPT Action only for the external API calls. Do not describe the `SKILL.md` file itself as a plugin.
 
 ### Claude app custom skill
 
@@ -218,6 +238,8 @@ After pulling changes to this repository, rerun the same install command for eac
 
 For hosted chat adaptations, manually update the pasted instructions and uploaded files whenever this repository changes.
 
+If you build a GPT Action or API wrapper, update its OpenAPI schema, endpoint deployment, and authentication separately from the skill instructions.
+
 ## References
 
 - Codex Agent Skills: https://developers.openai.com/codex/skills
@@ -225,5 +247,6 @@ For hosted chat adaptations, manually update the pasted instructions and uploade
 - Claude Code Skills: https://code.claude.com/docs/en/skills
 - ChatGPT Projects: https://help.openai.com/en/articles/10169521-using-projects-in-chatgpt
 - ChatGPT custom GPTs: https://help.openai.com/en/articles/8554397-creating-a-gpt
+- GPT Actions: https://platform.openai.com/docs/actions
 - Claude Skills: https://claude.com/blog/skills
 - Claude Projects: https://support.claude.com/en/articles/9517075-what-are-projects
