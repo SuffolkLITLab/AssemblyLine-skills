@@ -146,12 +146,84 @@ Use the docassemble-assemblyline skill to check this Docassemble interview befor
 
 Claude Code watches skill directories for edits, but if you created a new top-level skills directory after starting Claude Code, restart the session.
 
+## Hosted chat and web app options
+
+Hosted chat products do not all install local `SKILL.md` folders the same way CLI and IDE agents do. Use the option below that matches the product.
+
+| Product | Best option | Notes |
+| --- | --- | --- |
+| ChatGPT | Project or custom GPT | ChatGPT does not currently expose a `SKILL.md` folder install path in the chat UI. Use project/custom GPT instructions plus uploaded reference files instead. |
+| Claude web/desktop apps | Claude Skills | Claude supports custom skills across Claude apps for Pro, Max, Team, and Enterprise users. |
+| Claude Projects | Project instructions and knowledge | Useful fallback when Claude Skills are unavailable or when you want a lightweight project-specific setup. |
+
+### ChatGPT Project adaptation
+
+Use this when you want the AssemblyLine guidance available inside a specific ChatGPT workspace.
+
+1. Create a new ChatGPT Project named something like `AssemblyLine development`.
+2. Copy the body of `skills/docassemble-assemblyline/SKILL.md` into the project's instructions.
+3. Upload supporting reference files from `docs/`, plus any examples you expect to use often.
+4. Start new chats inside the project and ask ChatGPT to follow the AssemblyLine project instructions.
+
+This is not a true agent skill install: ChatGPT treats the uploaded files as project context and the pasted text as project instructions.
+
+### ChatGPT custom GPT adaptation
+
+Use this when you want a reusable ChatGPT entry point that can be shared or listed in a workspace GPT store.
+
+1. Create a custom GPT in ChatGPT.
+2. Put the durable behavior rules from `SKILL.md` in the GPT's Instructions field.
+3. Upload `docs/` and selected `examples/` as Knowledge files.
+4. Add conversation starters such as:
+
+```text
+Review this Docassemble interview for AssemblyLine conventions.
+Suggest ALKiln smoke tests for this interview.
+Explain which AssemblyLine tool I should use for this task.
+```
+
+Keep behavior rules in Instructions and reference material in Knowledge. If you later update this repository, update the GPT instructions and uploaded knowledge files manually.
+
+### Claude app custom skill
+
+Use this when you want the closest hosted-chat equivalent to the filesystem skill.
+
+1. In Claude, enable Skills in Settings if needed.
+2. Create a custom skill. The built-in `skill-creator` skill can help generate the folder structure and `SKILL.md`.
+3. Use `docassemble-assemblyline` as the skill name.
+4. Add this repository's `skills/docassemble-assemblyline/SKILL.md` as the main skill file.
+5. Include `docs/`, `scripts/`, and `examples/` as supporting resources if the Claude skill creation flow allows multiple files or a bundled folder.
+6. Test with a prompt such as:
+
+```text
+Use the docassemble-assemblyline skill to review this interview for AssemblyLine conventions.
+```
+
+For Team and Enterprise accounts, an admin may need to enable Skills organization-wide before users can create or use custom skills.
+
+### Claude Project fallback
+
+Use this when Claude Skills are unavailable or when the guidance only needs to apply to one Claude project.
+
+1. Create a Claude Project named something like `AssemblyLine development`.
+2. Paste the body of `SKILL.md` into the project's instructions.
+3. Upload supporting documents, code, and examples to the project's knowledge base.
+4. Start chats in that project and explicitly ask Claude to follow the AssemblyLine project instructions.
+
+Like the ChatGPT Project option, this is a project-knowledge adaptation, not a true skill installation.
+
 ## Updating an installed skill
 
 After pulling changes to this repository, rerun the same install command for each target you use. The helper replaces the old deployed copy so deleted supporting files do not linger.
+
+For hosted chat adaptations, manually update the pasted instructions and uploaded files whenever this repository changes.
 
 ## References
 
 - Codex Agent Skills: https://developers.openai.com/codex/skills
 - OpenCode Agent Skills: https://opencode.ai/docs/skills
 - Claude Code Skills: https://code.claude.com/docs/en/skills
+- ChatGPT Projects: https://help.openai.com/en/articles/10169521-using-projects-in-chatgpt
+- ChatGPT custom GPTs: https://help.openai.com/en/articles/8554397-creating-a-gpt
+- Claude Skills: https://claude.com/blog/skills
+- Claude Projects: https://support.claude.com/en/articles/9517075-what-are-projects
