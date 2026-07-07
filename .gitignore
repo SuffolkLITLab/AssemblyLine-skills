@@ -1,0 +1,23 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.env
+
+# Build / generated artifacts
+dist/
+build/
+generated_output/
+*.egg-info/
+
+# Local secrets
+*.key
+*.pem
+secrets.toml
+.env.*
+
+# OS/editor
+.DS_Store
+.idea/
+.vscode/
