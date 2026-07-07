@@ -5,12 +5,12 @@ Agent skills, setup scripts, and reusable workflow guidance for developing high-
 ## Contents
 
 ```text
-skills/docassemble-assemblyline/            Self-contained AssemblyLine skill package
-skills/docassemble-assemblyline/SKILL.md    Main agent-facing skill
-skills/docassemble-assemblyline/references/ Longer workflow and environment notes
-skills/docassemble-assemblyline/scripts/    Setup scripts for agent workspaces
-skills/docassemble-assemblyline/examples/   Small runnable examples and curl snippets
-docs/skill-deployment.md                    How to install or adapt the skill across agent and hosted chat products
+skills/assemblyline-dev/            Self-contained AssemblyLine development skill package
+skills/assemblyline-dev/SKILL.md    Main agent-facing skill
+skills/assemblyline-dev/references/ Longer workflow and environment notes
+skills/assemblyline-dev/scripts/    Setup scripts for agent workspaces
+skills/assemblyline-dev/examples/   Small runnable examples and curl snippets
+docs/skill-deployment.md            How to install or adapt the skill across agent and hosted chat products
 ```
 
 ## Recommended install for an agent workspace
@@ -18,8 +18,8 @@ docs/skill-deployment.md                    How to install or adapt the skill ac
 From the repository root:
 
 ```bash
-bash skills/docassemble-assemblyline/scripts/setup-ubuntu.sh
-bash skills/docassemble-assemblyline/scripts/setup-python.sh
+bash skills/assemblyline-dev/scripts/setup-ubuntu.sh
+bash skills/assemblyline-dev/scripts/setup-python.sh
 ```
 
 Some workflows require a running Docassemble server with API access, especially ALDashboard translation, ALDashboard DOCX/PDF endpoints, and deployment with `docassemblecli`.
@@ -29,10 +29,10 @@ Some workflows require a running Docassemble server with API access, especially 
 The canonical skill package is:
 
 ```text
-skills/docassemble-assemblyline/
+skills/assemblyline-dev/
 ```
 
-It is self-contained so it can be installed directly by tools that expect an agent skill directory.
+It is self-contained so it can be installed directly by tools that expect an agent skill directory. Its skill name is `assemblyline-dev`, which avoids confusion with the related `docassemble-AssemblyLine` package repository.
 
 To install the skill in Codex, OpenCode, Claude Code, or adapt it for hosted chat products like ChatGPT and Claude, see [`docs/skill-deployment.md`](docs/skill-deployment.md).
 
