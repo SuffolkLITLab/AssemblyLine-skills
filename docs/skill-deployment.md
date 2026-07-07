@@ -1,16 +1,14 @@
 # Deploying the AssemblyLine skill
 
-This repository's canonical skill is:
+This repository's canonical skill package is:
 
 ```text
-skills/docassemble-assemblyline/SKILL.md
+skills/docassemble-assemblyline/
 ```
 
-The skill is an agent instruction package, not a Docassemble package. Install it by copying the skill directory into the skill-discovery location used by your agent.
+The skill is an agent instruction package, not a Docassemble package. It is self-contained: `SKILL.md`, `references/`, `scripts/`, and `examples/` all live inside the skill directory.
 
-Because `SKILL.md` refers to supporting material in `docs/`, `scripts/`, and `examples/`, the recommended install copies those folders with the skill.
-
-Run the commands below from the root of this repository.
+Run the manual install commands below from the root of this repository.
 
 ## Before deployment
 
@@ -19,7 +17,21 @@ Run the commands below from the root of this repository.
 3. Do not add secrets, API keys, private server URLs, or client data to a skill directory.
 4. Restart the agent if it does not notice a newly created skills directory.
 
-## Shared install helper
+## Install with the Agent Skills CLI
+
+Tools that support the Agent Skills CLI can install the skill directly from this repository path:
+
+```bash
+npx skills add https://github.com/SuffolkLITLab/AssemblyLine-skills/tree/main/skills/docassemble-assemblyline
+```
+
+For local testing from a checkout, use:
+
+```bash
+npx skills add skills/docassemble-assemblyline
+```
+
+## Shared manual install helper
 
 ```bash
 install_assemblyline_skill() {
@@ -29,7 +41,6 @@ install_assemblyline_skill() {
   mkdir -p "$target"
 
   cp -R skills/docassemble-assemblyline/. "$target"/
-  cp -R docs scripts examples "$target"/
 }
 ```
 
@@ -152,7 +163,7 @@ Hosted chat products do not all install local `SKILL.md` folders. Use the closes
 
 | Product | Recommended setup |
 | --- | --- |
-| ChatGPT | Create a Project or custom GPT. Put the durable rules from `SKILL.md` in the instructions and upload supporting `docs/` and selected `examples/` as reference files. |
+| ChatGPT | Create a Project or custom GPT. Put the durable rules from `SKILL.md` in the instructions and upload supporting `references/` and selected `examples/` as reference files. |
 | Claude web/desktop apps | Create a Claude custom skill when available. Use `docassemble-assemblyline` as the skill name, make this repository's `SKILL.md` the main skill file, and include supporting resources. |
 | Claude Projects | Use project instructions and project knowledge when Claude Skills are unavailable or when the guidance should apply only to one project. |
 
@@ -166,6 +177,7 @@ For hosted chat adaptations, manually update the pasted instructions and uploade
 
 ## References
 
+- Agent Skills CLI: https://skills.sh/
 - Codex Agent Skills: https://developers.openai.com/codex/skills
 - OpenCode Agent Skills: https://opencode.ai/docs/skills
 - Claude Code Skills: https://code.claude.com/docs/en/skills
