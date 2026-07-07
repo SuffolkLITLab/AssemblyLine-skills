@@ -153,6 +153,7 @@ Hosted chat products do not all install local `SKILL.md` folders the same way CL
 | Product | Best option | Notes |
 | --- | --- | --- |
 | ChatGPT | Project or custom GPT | ChatGPT does not currently expose a `SKILL.md` folder install path in the chat UI. Use project/custom GPT instructions plus uploaded reference files instead. |
+| ChatGPT Developer mode / Apps SDK | Only when you need MCP tools | Developer mode lets ChatGPT connect to MCP servers. It can complement this skill with live tools, but it does not install a local `SKILL.md` directory. |
 | ChatGPT plugin / GPT Action | Only when you need external API calls | Plugins and actions are API integrations, not instruction bundles. Use a GPT Action only if you expose an AssemblyLine-related API. |
 | Claude web/desktop apps | Claude Skills | Claude supports custom skills across Claude apps for Pro, Max, Team, and Enterprise users. |
 | Claude Projects | Project instructions and knowledge | Useful fallback when Claude Skills are unavailable or when you want a lightweight project-specific setup. |
@@ -184,6 +185,27 @@ Explain which AssemblyLine tool I should use for this task.
 ```
 
 Keep behavior rules in Instructions and reference material in Knowledge. If you later update this repository, update the GPT instructions and uploaded knowledge files manually.
+
+### ChatGPT Developer mode and MCP Apps
+
+Turning on ChatGPT Developer mode does not make ChatGPT read local agent skill folders. It gives ChatGPT MCP client access so you can create a draft app/connector backed by a remote MCP server.
+
+Use Developer mode when you want ChatGPT to call tools, not merely follow instructions. For this repository, that could mean building an MCP server that exposes AssemblyLine-related tools such as:
+
+- Run DAYamlChecker on uploaded or repository YAML.
+- Call ALDashboard endpoints for translation, YAML checks, DOCX validation, or PDF utilities.
+- Trigger a controlled deployment workflow against a Docassemble server.
+- Read AssemblyLine reference material from this repository and return targeted guidance.
+
+A reasonable ChatGPT setup is:
+
+1. Keep the guidance layer in a ChatGPT Project or custom GPT by pasting `SKILL.md` into instructions and uploading supporting docs.
+2. Build and host an MCP server for any live tools you want ChatGPT to use.
+3. Add concise MCP server `instructions` for cross-tool guidance, such as required tool order and safety rules.
+4. In ChatGPT, enable Developer mode and create a connector for the MCP server's HTTPS `/mcp` endpoint.
+5. Start a new chat, choose the connector from the tools menu, and explicitly prompt ChatGPT to use the connector when needed.
+
+Treat Developer mode as higher risk than a project/custom GPT: MCP tools can include read and write actions, and a malicious or poorly scoped MCP server can expose data or make unwanted changes. Use least-privilege credentials, staging servers, and confirmation settings for write actions.
 
 ### ChatGPT plugins and GPT Actions
 
@@ -238,7 +260,7 @@ After pulling changes to this repository, rerun the same install command for eac
 
 For hosted chat adaptations, manually update the pasted instructions and uploaded files whenever this repository changes.
 
-If you build a GPT Action or API wrapper, update its OpenAPI schema, endpoint deployment, and authentication separately from the skill instructions.
+If you build a GPT Action, MCP app, or API wrapper, update its schema, endpoint deployment, authentication, and connector metadata separately from the skill instructions.
 
 ## References
 
@@ -247,6 +269,8 @@ If you build a GPT Action or API wrapper, update its OpenAPI schema, endpoint de
 - Claude Code Skills: https://code.claude.com/docs/en/skills
 - ChatGPT Projects: https://help.openai.com/en/articles/10169521-using-projects-in-chatgpt
 - ChatGPT custom GPTs: https://help.openai.com/en/articles/8554397-creating-a-gpt
+- ChatGPT Developer mode: https://developers.openai.com/api/docs/guides/developer-mode
+- ChatGPT Apps SDK: https://developers.openai.com/apps-sdk
 - GPT Actions: https://platform.openai.com/docs/actions
 - Claude Skills: https://claude.com/blog/skills
 - Claude Projects: https://support.claude.com/en/articles/9517075-what-are-projects
